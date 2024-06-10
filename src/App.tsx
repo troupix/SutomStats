@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MiniDrawer from './components/Drawer';
 import { LocationContext } from './context/LocationContext';
@@ -7,9 +6,10 @@ import RegisterGame from './components/RegisterGame';
 import BatchUpdate from './components/BatchUpdate';
 import BatchUpdateTxt from './components/BatchUpdateTxt';
 import GameTable from './components/GameTable';
+import Stats from './components/Stats';
 
 function App() {
-  const [location, setLocation] = React.useState<string>('');
+  const [location, setLocation] = useState<string>('');
 
   return (
     <LocationContext.Provider value={{ location, setLocation }}>
@@ -31,6 +31,10 @@ function App() {
         {
           location === 'Full game table' &&
           <GameTable />
+        }
+        {
+          (location === 'Stats' || location==='') &&
+          <Stats />
         }
 
       </MiniDrawer>

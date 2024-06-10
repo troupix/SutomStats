@@ -3,8 +3,8 @@ export interface Game {
     gameId: string;
     gameScore: string;
     gameTime: number;
-    numberOfReds?: number;
-    numberOfYellows?: number;
-    numberOfBlues?: number;
-    player?: string;
+    numberOfReds: number;
+    numberOfYellows: number;
+    numberOfBlues: number;
+    player: string;
 }
