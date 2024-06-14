@@ -27,6 +27,46 @@ const Stats: React.FC = () => {
         return `${hours}h${minutes}m${seconds}s`;
     }
 
+    const getWins = (timed:boolean) => {
+        const res = { max: 0, malie: 0, draw: 0};
+        if (timed) {
+            gameIds.forEach((id: string) => {
+                const max = games.find((game: Game) => game.gameId === id && game.player === 'Max');
+                const malie = games.find((game: Game) => game.gameId === id && game.player === 'Malie');
+                if (max && malie) {
+                    if(max.gameScore > malie.gameScore) {
+                        res.max++;
+                    } else if (max.gameScore < malie.gameScore) {
+                        res.malie++;
+                    } else if (max.gameScore === malie.gameScore) {
+                        if (max.gameTime < malie.gameTime) {
+                            res.max++;
+                        } else if (max.gameTime > malie.gameTime) {
+                            res.malie++;
+                        } else {
+                            res.draw++;
+                        }
+                    }
+                }
+            });
+        } else {
+            gameIds.forEach((id: string) => {
+                const max = games.find((game: Game) => game.gameId === id && game.player === 'Max');
+                const malie = games.find((game: Game) => game.gameId === id && game.player === 'Malie');
+                if (max && malie) {
+                    if(max.gameScore > malie.gameScore) {
+                        res.max++;
+                    } else if (max.gameScore < malie.gameScore) {
+                        res.malie++;
+                    } else if (max.gameScore === malie.gameScore) {
+                        res.draw++;
+                    }
+                }
+            });
+        }
+        return res;
+    }
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -56,23 +96,40 @@ const Stats: React.FC = () => {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={5}>
-                <Card>
-                    <CardContent>
+            <Grid item xs={4}>
+                <Card sx={{ minWidth: '100%' }}>
+                    <CardContent sx={{ height: '40vh' }}>
                         <Typography variant="h6">Scores</Typography>
                         <BarChart
-                            width={500}
-                            height={300}
-                            series={[{ data: [games.filter(game => game.player === 'Max' && game.gameScore === '1').length,games.filter(game => game.player === 'Max' && game.gameScore === '2').length,games.filter(game => game.player === 'Max' && game.gameScore === '3').length,games.filter(game => game.player === 'Max' && game.gameScore === '4').length,games.filter(game => game.player === 'Max' && game.gameScore === '5').length,games.filter(game => game.player === 'Max' && game.gameScore === '6').length,games.filter(game => game.player === 'Max' && game.gameScore === '-').length], type: 'bar', label: 'Max' },
-                            { data: [games.filter(game => game.player === 'Malie' && game.gameScore === '1').length,games.filter(game => game.player === 'Malie' && game.gameScore === '2').length,games.filter(game => game.player === 'Malie' && game.gameScore === '3').length,games.filter(game => game.player === 'Malie' && game.gameScore === '4').length,games.filter(game => game.player === 'Malie' && game.gameScore === '5').length,games.filter(game => game.player === 'Malie' && game.gameScore === '6').length,games.filter(game => game.player === 'Malie' && game.gameScore === '-').length], type: 'bar', label: 'Malie' }]}
-                            xAxis={[{ scaleType: 'band', data: [1, 2, 3, 4, 5, 6, '-'] }]}
-                            
+                            series={[{ data: [games.filter(game => game.player === 'Max' && game.gameScore === '1').length, games.filter(game => game.player === 'Max' && game.gameScore === '2').length, games.filter(game => game.player === 'Max' && game.gameScore === '3').length, games.filter(game => game.player === 'Max' && game.gameScore === '4').length, games.filter(game => game.player === 'Max' && game.gameScore === '5').length, games.filter(game => game.player === 'Max' && game.gameScore === '6').length, games.filter(game => game.player === 'Max' && game.gameScore === '-').length], type: 'bar', label: 'Max' },
+                            { data: [games.filter(game => game.player === 'Malie' && game.gameScore === '1').length, games.filter(game => game.player === 'Malie' && game.gameScore === '2').length, games.filter(game => game.player === 'Malie' && game.gameScore === '3').length, games.filter(game => game.player === 'Malie' && game.gameScore === '4').length, games.filter(game => game.player === 'Malie' && game.gameScore === '5').length, games.filter(game => game.player === 'Malie' && game.gameScore === '6').length, games.filter(game => game.player === 'Malie' && game.gameScore === '-').length], type: 'bar', label: 'Malie' }]}
+                            yAxis={[{ scaleType: 'band', data: [1, 2, 3, 4, 5, 6, '-'] }]}
+                            layout='horizontal'
+                            bottomAxis={null}
+                            barLabel="value"
+
                         >
                         </BarChart>
 
                     </CardContent>
                 </Card>
+                
             </Grid>
+            <Grid item xs={12}>
+                    <Card sx={{ minWidth: '100%' }}>
+                        <CardContent sx={{ height: '40vh' }}>
+                            <Typography variant="h6">Wins</Typography>
+                            <Typography variant="body1">Based on moves only</Typography>
+                            <Typography variant="body1">Max: {getWins(false).max}</Typography>
+                            <Typography variant="body1">Malie: {getWins(false).malie}</Typography>
+                            <Typography variant="body1">Draw: {getWins(false).draw}</Typography>
+                            <Typography variant="body1">Based on time and moves</Typography>
+                            <Typography variant="body1">Max: {getWins(true).max}</Typography>
+                            <Typography variant="body1">Malie: {getWins(true).malie}</Typography>
+                            <Typography variant="body1">Draw: {getWins(true).draw}</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
         </Grid>
     );
 };
