@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { LocationContext } from '../context/LocationContext';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import AttachmentIcon from '@mui/icons-material/Attachment';
+import TableRowsIcon from '@mui/icons-material/TableRows';
 
 const drawerWidth = 240;
 
@@ -95,6 +98,8 @@ type MiniDrawerProps = {
     children?: React.ReactNode;
 };
 
+const icons= [<BarChartIcon />, <AttachmentIcon />, <TableRowsIcon />];
+
 const MiniDrawer: React.FC<MiniDrawerProps> = (props) => {
     const { children } = props;
     const { setLocation } = React.useContext(LocationContext);
@@ -156,7 +161,7 @@ const MiniDrawer: React.FC<MiniDrawerProps> = (props) => {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    {icons[index]}
                                 </ListItemIcon>
                                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>

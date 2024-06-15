@@ -22,3 +22,12 @@ export const getAllGames = async () => {
         console.error(error);
     }
 }
+
+export const getLastGameRegistered = async () => {
+    try {
+        const response = await api.get('last');
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
