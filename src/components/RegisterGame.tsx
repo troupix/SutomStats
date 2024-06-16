@@ -32,9 +32,9 @@ const RegisterGame: React.FC = () => {
         if (game.gameFullResult === '' && !game.gameFullResult.includes('#SUTOM')) return false;
         if (game.gameId === '') return false;
         if (game.gameScore === '') return false;
-        if (game.numberOfReds === 0) return false;
-        if (game.numberOfYellows === 0) return false;
-        if (game.numberOfBlues === 0) return false;
+        // if (game.numberOfReds === 0) return false;
+        // if (game.numberOfYellows === 0) return false;
+        // if (game.numberOfBlues === 0) return false;
         if (game.player === '') return false;
         return true;
     }
