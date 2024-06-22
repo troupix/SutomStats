@@ -50,7 +50,7 @@ const RegisterGame: React.FC = () => {
     useEffect(() => {
         if (game.gameFullResult !== '') {
             const gameTime = game.gameFullResult.match(/((\d{2})h)*(\d{2}):(\d{2})/)?.[0];
-            const [hours, minutes, seconds] = gameTime && gameTime.includes("h") ? [gameTime.split('h')[0], gameTime.split('h')[1].split(':')[0], gameTime.split(':')[1]] : ['00', gameTime?.split(':')[0] || '00', gameTime?.split(':')[0] || '00'];
+            const [hours, minutes, seconds] = gameTime && gameTime.includes("h") ? [gameTime.split('h')[0], gameTime.split('h')[1].split(':')[0], gameTime.split(':')[1]] : ['00', gameTime?.split(':')[0] || '00', gameTime?.split(':')[1] || '00'];
             console.log(gameTime);
             setGame((prevGame:Game) => ({
                 ...prevGame,
